@@ -1,4 +1,4 @@
-The Correlation heatmap ensures diversification by revealing if your stocks are redundant (moving identically) or independent.
+The Correlation heatmap ensures diversification by revealing if stocks are redundant (moving identically) or independent.
 It is normalized on a scale of -1 to +1. By removing volatility, it tells us if stocks move in sync.
 If two stocks have a high correlation (close to 1), they are mathematically redundant. This information helps diversify a portfolio
 
