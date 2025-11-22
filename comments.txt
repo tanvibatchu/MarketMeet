@@ -6,3 +6,58 @@ If two stocks have a high correlation (close to 1), they are mathematically redu
 The Covariance heatmap measures actual risk magnitude, identifying how volatile individual stocks are and how much they swing together.
 It combines correlation plus volatility, which tells us how much actual risk is being generated.
 A high covariance means two stocks not only move together but do so with violent swings
+
+
+
+# ------------------------------------------
+# Portfolio Weight Pie Chart
+# ------------------------------------------
+
+#uses final portfolio and meta sector info
+portfolio_df = Portfolio_Final
+sector_series = meta["Sector"]
+
+#sector breakdown for the portfolio
+sectors = portfolio_df["Ticker"].map(sector_series)
+sector_totals = portfolio_df.groupby(sectors)["Value"].sum()
+
+plt.figure(figsize=(8, 8))
+plt.pie(
+    sector_totals,
+    labels=sector_totals.index,
+    autopct="%1.1f%%"
+)
+plt.title("Portfolio Sector Allocation")
+plt.tight_layout()
+plt.show()
+
+#weight distribution across tickers
+plt.figure(figsize=(8, 8))
+plt.pie(
+    portfolio_df["Weight"],
+    labels=portfolio_df["Ticker"],
+    autopct="%1.1f%%"
+)
+plt.title("Portfolio Weight Distribution")
+plt.tight_layout()
+plt.show()
+
+
+#get sector totals from the final selected stocks
+benchmark_totals = portfolio_df.groupby(sectors)["Value"].sum()
+
+#convert totals to percentages for pie chart
+benchmark_sectors = (benchmark_totals / benchmark_totals.sum()).to_dict()
+
+#benchmark sector allocation
+plt.figure(figsize=(8, 8))
+plt.pie(
+    list(benchmark_sectors.values()),
+    labels=list(benchmark_sectors.keys()),
+    autopct="%1.1f%%"
+)
+plt.title("Benchmark Sector Allocation (Auto)")
+plt.tight_layout()
+plt.show()
+# --- Explanation of the Pie Charts ---
+print("The sector allocation chart highlights how the portfolio’s value is spread across different industries. By looking at the distribution, we can see which areas the portfolio naturally leans toward and whether any sector carries a noticeably larger share. This makes it easier to understand where the portfolio is most exposed and where diversification is helping reduce concentration risk. The weight distribution chart focuses on the individual tickers rather than the sectors. It shows how much each position contributes to the whole portfolio, allowing us to confirm that no single stock dominates the allocation. This is especially useful for checking that the final weights line up with the optimization output.The benchmark sector mix is generated using the same set of selected stocks. Since it reflects the underlying composition of the portfolio, it provides a simple reference point to compare against the sector allocation chart. Together, these visuals help clarify both the top-down (sector) and bottom-up (ticker) structure of the portfolio.")
