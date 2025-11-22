@@ -1,0 +1,8 @@
+The Correlation heatmap ensures diversification by revealing if your stocks are redundant (moving identically) or independent.
+It is normalized on a scale of -1 to +1. By removing volatility, it tells us if stocks move in sync.
+If two stocks have a high correlation (close to 1), they are mathematically redundant. This information helps diversify a portfolio
+
+
+The Covariance heatmap measures actual risk magnitude, identifying how volatile individual stocks are and how much they swing together.
+It combines correlation plus volatility, which tells us how much actual risk is being generated.
+A high covariance means two stocks not only move together but do so with violent swings
